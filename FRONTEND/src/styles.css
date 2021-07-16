@@ -1,1 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+:root {
+    --blue-light: #EDF2F4;
+    --blue-normal: #4BA3C3;
+    --blue-normal-dark: #175676;
+    --blue-dark: #103E55;
+    --letters-light: #CEE7F4;
+    --letters-dark: #052333;
+    --red-love: #BA324F;
+    --background: #E6E6E6;
+}
+
+body {
+    background-color: var(--background);
+}

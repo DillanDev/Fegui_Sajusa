@@ -1,0 +1,197 @@
+@import url(../../../../../styles.css);
+
+/*Primera seccion*/
+
+#pArticle {
+    padding-top: 8%;
+    max-width: 100%;
+    height: 400px;
+    background-color: var(--background);
+    display: flex;
+    padding: 70px;
+}
+
+#article {
+    margin-left: 40px;
+    width: 200px;
+    height: 270px;
+    background-color: rgb(61, 113, 139);
+    display: block;
+    float: left;
+}
+
+#article>img {
+    width: 100%;
+    height: 100%;
+}
+
+.slider {
+    width: 50%;
+    height: 100%;
+    margin-left: 20%;
+    overflow: hidden;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.096);
+    /* background-size: cover; */
+}
+
+.slider ul {
+    display: flex;
+    animation: cambio 20s infinite alternate linear;
+    width: 400%;
+}
+
+.slider li {
+    width: 100%;
+    list-style: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.slider>ul>li>img {
+    width: 100%;
+    height: 260px;
+    background-size: cover;
+    background-repeat: none;
+    background-position: center;
+}
+
+.slider>ul>li>span {
+    text-align: center;
+    position: absolute;
+    padding: 10px 10%;
+    color: var(--blue-light);
+    font-size: 20px;
+    background-color: rgba(23, 86, 118, 0.705);
+}
+
+@keyframes cambio {
+    0% {
+        margin-left: 0;
+    }
+    20% {
+        margin-left: 0;
+    }
+    25% {
+        margin-left: -100%;
+    }
+    45% {
+        margin-left: -100%;
+    }
+    50% {
+        margin-left: -200%;
+    }
+    70% {
+        margin-left: -200%;
+    }
+    75% {
+        margin-left: -300%;
+    }
+    100% {
+        margin-left: -300%;
+    }
+}
+
+
+/*Servicios*/
+
+#services-card {
+    /* background-color: red; */
+    background-color: var(--background);
+    display: block;
+}
+
+.container-card {
+    width: 100%;
+    display: flex;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.title-cards {
+    width: 100%;
+    background-color: #fff;
+    max-width: 1080px;
+    margin: auto;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    color: var(--blue-dark);
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.096);
+}
+
+.card {
+    width: 100%;
+    margin: 20px;
+    border-radius: 5%;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.096);
+    transition: all 400ms ease-out;
+    cursor: default;
+}
+
+.card:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3%);
+}
+
+.card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.card .contenido-card {
+    padding: 15px;
+    text-align: center;
+}
+
+.card .contenido-card h3 {
+    margin-bottom: 15px;
+    color: var(--letters-dark);
+}
+
+.card .contenido-card p {
+    line-height: 1.8;
+    color: #6a6a6a;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.card .contenido-card a {
+    display: inline-block;
+    padding: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: var(--blue-dark);
+    border: 1px solid var(--blue-dark);
+    border-radius: 20px;
+    transition: all 400ms ease;
+    margin-bottom: 5px;
+}
+
+.card .contenido-card a:hover {
+    background: var(--blue-dark);
+    color: var(--blue-light);
+}
+
+
+/*Fin-Cards*/
+
+@media screen and (max-width:760px) {
+    .slider {
+        width: 150%;
+        height: 100%;
+        margin-left: 0%;
+    }
+    .container-card {
+        flex-wrap: wrap;
+    }
+    .card {
+        margin: 15px;
+    }
+    #article {
+        display: none;
+    }
+}
