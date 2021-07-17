@@ -14,6 +14,7 @@ import { CartComponent } from './body/cart/cart.component';
 import { ConsultantComponent } from './body/consultant/consultant.component';
 import { ArticleListComponent } from './body/article-list/article-list.component';
 import { ArticleDetailComponent } from './body/article-detail/article-detail.component';
+import { ArticleCardComponent } from './body/article-card/article-card.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ArticleDetailComponent } from './body/article-detail/article-detail.com
     CartComponent,
     ConsultantComponent,
     ArticleListComponent,
-    ArticleDetailComponent
+    ArticleDetailComponent,
+    ArticleCardComponent
   ],
   imports: [
     BrowserModule,

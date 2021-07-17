@@ -1,3 +1,39 @@
 <app-header></app-header>
-<p>article-list works!</p>
+
+<div class="body">
+    <div class="img-port">
+        <img src="../../../../../assets/img/MEDICINA.PNG" alt="">
+    </div>
+    <div class="container-article">
+        <div class="title">
+            <h1>Artículos</h1>
+            <hr id="linea">
+
+        </div>
+
+        <div class="content">
+
+
+            <div class="box" *ngFor="let article of articles">
+                <a href="#">
+                    <h3> {{article.title}}</h3>
+                </a>
+                <img src="{{article.image}}" alt="">
+                <div class="content">
+                    <p> {{article.content}}</p>
+
+                </div>
+
+                <a routerLink="/article-detail">Ver más</a>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+</div>
+
 <app-footer></app-footer>

@@ -1,0 +1,25 @@
+@import url(../../../../../styles.css);
+.body {
+    height: 150vh;
+    width: 100%;
+    padding-top: 10%;
+    /* background-color: black; */
+}
+
+
+/*Contenedor*/
+
+.product-container {
+    display: flex;
+    width: 90%;
+    height: 80%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    background-color: red;
+}
+
+.container-slider-product {
+    /* margin: 1px; */
+    margin-bottom: 20%;
+}
