@@ -28,5 +28,15 @@ export class ProductController{
         
     }
 
+    public async Byid(req:Request, res:Response){
+    }
+
+
+    public async create(req:Request, res:Response){}
+
+    public async update(req:Request, res:Response){}
+
+    public async deleteByid(req:Request, res:Response){}
+
 
 }

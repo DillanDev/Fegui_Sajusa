@@ -1,0 +1,116 @@
+@import url(../../../../../styles.css);
+a,
+a:link,
+a:hover,
+a:visited {
+    text-decoration: none;
+    color: var(--blue-normal-dark);
+}
+
+.container-space {
+    display: flex;
+    float: right;
+    width: 70%;
+    height: 110px;
+    position: relative;
+    left: 0%;
+    background-color: var(--blue-light);
+}
+
+.language,
+.profile,
+.search,
+.car {
+    margin-top: 4%;
+    padding-left: 5%;
+}
+
+.language>img {
+    height: 30px;
+    width: 30px;
+}
+
+.car>span {
+    color: var(--blue-normal-dark);
+    font-size: 12px;
+}
+
+#car-logo {
+    height: 30px;
+    width: 30px;
+    border: none;
+}
+
+
+/*Buscador*/
+
+#buscador {
+    height: 25px;
+    width: 25px;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-right: 10px;
+    border: none;
+}
+
+.search {
+    border: 2px solid var(--blue-normal-dark);
+    width: 43%;
+    height: 42px;
+    border-radius: 50px;
+    display: flex;
+    padding-left: 5px;
+}
+
+.search>input {
+    border-radius: 50px;
+    height: 100%;
+    border: none;
+    width: 100%;
+    padding: 0px 1px;
+    background-color: var(--blue-light);
+}
+
+.search>input:focus {
+    outline: none;
+}
+
+.search>img {
+    cursor: pointer;
+}
+
+@media screen and (min-width:2000px) {
+    .language,
+    .profile,
+    .search,
+    .car {
+        margin-top: 2% !important;
+        padding-left: 5%;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .container-space {
+        height: 64px;
+    }
+    #car-span,
+    #profile-span {
+        display: none;
+    }
+    .search {
+        height: 32px;
+        width: 40%;
+    }
+    .language>img {
+        height: 25px;
+        width: 25px;
+    }
+    #car-logo {
+        height: 25px;
+        width: 25px;
+        border: none;
+    }
+    #car-logo {
+        cursor: pointer;
+    }
+}

@@ -1,35 +1,5 @@
-<div class="container-header">
-
-    <div class="logo">
-        <a routerLink="/"><img src="../../../../../assets/img/logo.svg" alt="" id="header-logo"></a>
-    </div>
-
-    <div class="container-space">
-
-        <div class="search">
-            <input type="search" name="search" placeholder="Buscar" />
-            <img src="../../../../../assets/img/search.svg" alt="" id="buscador">
-        </div>
-
-        <div class="language">
-            <img src="../../../../../assets/img/estados-unidos.png" alt="Idioma">
-        </div>
-
-        <!-- <div class="profile">
-            <a href="html/perfil.html"><iframe src="../../../../../assets/img/profile.svg" alt="" id="user"></iframe></a>
-
-            <span id="profile-span"> <a href="html/perfil.html">Mi cuenta</a> </span>
-        </div> -->
-
-        <div class="car">
-            <a routerLink="/cart"><img src="../../../../../assets/img/car.svg" alt="" id="car-logo"></a>
-            <span id="car-span"><a routerLink="/cart">Carrito</a> </span>
-        </div>
-
-    </div>
-</div>
-
-<hr id="line-header">
+<app-container-elements></app-container-elements>
+<app-container-top></app-container-top>
 
 
 <input type="checkbox" id="btn-menu" />
@@ -58,7 +28,8 @@
         <li><a routerLink="#">Cuenta</a>
             <ul>
                 <li><a routerLink="/my-account">Perfil</a></li>
-                <li><a routerLink="/login-register">Login/Register</a></li>
+                <li><a routerLink="/login">Ingresa</a></li>
+                <li><a routerLink="/register">Crea tu cuenta</a></li>
                 <li><a href="#">Salir</a></li>
             </ul>
         </li>

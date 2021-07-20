@@ -9,19 +9,23 @@ import { LoginComponent } from './body/login/login.component';
 import { MyAccountComponent } from './body/my-account/my-account.component';
 import { ProductDetailComponent } from './body/product-detail/product-detail.component';
 import { ProductListComponent } from './body/product-list/product-list.component';
+import { RegisterComponent } from './body/register/register.component';
+import { CheckoutComponent } from './body/checkout/checkout.component';
 
 
 const routes: Routes = [
   {path:'', redirectTo: 'home',pathMatch: 'full'},
   {path:'home',component: HomeComponent},
   {path:'consultant',component: ConsultantComponent},
-  {path:'login-register',component: LoginComponent},
+  {path:'login',component: LoginComponent},
+  {path:'register',component: RegisterComponent},
   {path:'my-account',component: MyAccountComponent},
   {path:'product-list',component: ProductListComponent},
   {path:'product-detail',component: ProductDetailComponent},
   {path:'cart',component: CartComponent},
   {path:'article-list',component: ArticleListComponent},
   {path:'article-detail',component: ArticleDetailComponent},
+  {path:'checkout',component: CheckoutComponent}
 
 ];
 

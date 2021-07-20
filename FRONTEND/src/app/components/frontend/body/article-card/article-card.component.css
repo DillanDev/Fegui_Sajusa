@@ -9,6 +9,7 @@
     /* background-position: center; */
     /* background-repeat: none; */
     border: 1px solid var(--blue-dark);
+    /* background-color: var(--blue-dark); */
 }
 
 .card-img>img {

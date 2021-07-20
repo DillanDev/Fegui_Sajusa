@@ -33,5 +33,18 @@ class ProductController {
             }
         });
     }
+    Byid(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () { });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () { });
+    }
+    deleteByid(req, res) {
+        return __awaiter(this, void 0, void 0, function* () { });
+    }
 }
 exports.ProductController = ProductController;

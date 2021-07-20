@@ -13,16 +13,16 @@ export class ProductRoute{
         app.get('/fegui_sajusa/api/v1/categories',  this.productController.categories );
         app.get('/fegui_sajusa/api/v1/categories/:name/products',  this.productController.products );
     
-        // app.get('/fegui_sajusa/api/v1/customers/:id',  this.customerController.Byid );
+        app.get('/fegui_sajusa/api/v1/products/:id',  this.productController.Byid );
 
         // //Creando
-        // // app.post('/fegui_sajusa/api/v1/customers',  this.customerController.create );
+        app.post('/fegui_sajusa/api/v1/customers',  this.productController.create );
 
         // //Actualizando
-        // app.patch('/fegui_sajusa/api/v1/customers/:id',[checkJwt],  this.customerController.update );
+        app.patch('/fegui_sajusa/api/v1/customers/:id',[checkJwt],  this.productController.update );
 
         // //Desactivando
-        // app.patch('/fegui_sajusa/api/v1/delete/:id/customers',[checkJwt],  this.customerController.deleteByid );
+        app.patch('/fegui_sajusa/api/v1/delete/:id/customers',[checkJwt],  this.productController.deleteByid );
 
 
     }

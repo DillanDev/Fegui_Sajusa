@@ -2,61 +2,67 @@
 
 /*FOOTER*/
 
-.container-all {
-    width: 100%;
-    margin: auto;
-    text-align: center;
-}
-
 #line-footer {
     border: none;
     height: 7px;
     background-color: var(--blue-dark);
 }
 
-.container-body {
-    padding-top: 0.4%;
-    padding-bottom: 1%;
-    padding-left: 2%;
-    padding-right: 2%;
-    max-height: 90vh;
-    display: flex;
-    justify-content: space-between;
+.container-all {
+    width: 100%;
+    height: 45vh;
+    background-color: var(--letters-light);
     background-position: center;
     background-size: cover;
     background-image: url('../../../../../assets/img/footer.svg');
     background-repeat: no-repeat;
-    background-size: 500px 100%;
-    background-color: var(--letters-light);
+    background-size: 100% 100%;
 }
 
-.container-body h2 {
-    margin-top: 2%;
-    margin-bottom: 2%;
+.container-body {
+    position: relative;
+    top: 5%;
+    height: 45vh;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    margin-top: 10px;
     color: var(--letters-dark);
-    font-size: 90%;
+    font-size: 16px;
 }
 
-.footer-p {
-    color: var(--blue-normal-dark);
-    font-size: 90%;
-    white-space: normal !important;
+.content {
+    width: 100%;
+    height: 70px;
+}
+
+.content-colum2 {
+    width: 100%;
+    height: 200px;
 }
 
 .colum1,
 .colum2,
 .colum3 {
-    margin-top: 1%;
-    width: 33%;
+    text-align: center;
+    float: left;
+    height: 100%;
+    width: 320px;
 }
 
-.colum3>.icono {
+.icono {
     fill: var(--blue-normal-dark);
-    height: 25%;
-    width: 25%;
+    height: 25px;
+    width: 25px;
 }
 
 .container-footer {
+    float: left;
     text-align: center;
     background-color: var(--blue-normal-dark);
     color: var(--letters-light);
@@ -69,15 +75,40 @@
     font-size: 70%;
 }
 
-@media screen and (max-width:1100px) {
+@media screen and (max-width:768px) {
+    .container-all {
+        height: 60vh;
+    }
+    .container-body {
+        height: 60vh;
+        display: block;
+    }
+    .container-body h2 {
+        font-size: 24px;
+    }
+    .colum1,
+    .colum2 {
+        margin: 2px;
+        width: 250px;
+        height: 50%;
+        overflow: hidden;
+    }
+    .colum3 {
+        width: 250px;
+        height: 20%;
+    }
     .footer-p {
-        font-size: 50%;
+        font-size: 16px;
     }
 }
 
-@media screen and (max-width:760px) {
-    .container-body h2 {
-        color: var(--letters-dark);
-        font-size: 80%;
+@media screen and (max-width:634px) {
+    .container-all {
+        height: 100vh;
+    }
+    .colum1,
+    .colum2,
+    .colum3 {
+        width: 100%;
     }
 }

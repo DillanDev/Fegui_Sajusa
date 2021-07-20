@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-07-2021 a las 06:10:15
+-- Tiempo de generación: 20-07-2021 a las 18:16:43
 -- Versión del servidor: 10.4.19-MariaDB
 -- Versión de PHP: 8.0.6
 
@@ -83,10 +83,9 @@ CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `surname` varchar(60) NOT NULL,
-  `image` mediumblob DEFAULT NULL,
   `gender` varchar(15) NOT NULL,
-  `email` varchar(60) NOT NULL UNIQUE,
-  `telephone` varchar(15) DEFAULT NULL UNIQUE,
+  `email` varchar(60) NOT NULL,
+  `telephone` varchar(15) DEFAULT NULL,
   `password` varchar(60) NOT NULL,
   `status` varchar(11) NOT NULL DEFAULT 'active',
   `city` varchar(30) NOT NULL,
@@ -100,8 +99,9 @@ CREATE TABLE `customers` (
 -- Volcado de datos para la tabla `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `surname`, `image`, `gender`, `email`, `telephone`, `password`, `status`, `city`, `region`, `zip`, `createdAt`, `updateAt`) VALUES
-(34, 'ramon', 'arepa', 0x756e646566696e6564, 'hombre', 'ramon@gmail.com', '45345', '$2b$10$NyW.zQhQ2yH4HN0O3/O7iuwZLI9uhyMWIOCxaqDlAkBfSyrJ/XMdC', 'active', 'Bogota', 'Bogota', 'Cundinamarc', '2021-07-06 14:05:45', '2021-07-06 14:05:45');
+INSERT INTO `customers` (`id`, `name`, `surname`, `gender`, `email`, `telephone`, `password`, `status`, `city`, `region`, `zip`, `createdAt`, `updateAt`) VALUES
+(34, 'ramon', 'arepa', 'hombre', 'ramon@gmail.com', '45345', '$2b$10$NyW.zQhQ2yH4HN0O3/O7iuwZLI9uhyMWIOCxaqDlAkBfSyrJ/XMdC', 'active', 'Bogota', 'Bogota', 'Cundinamarc', '2021-07-06 14:05:45', '2021-07-06 14:05:45'),
+(99, 'duilan', 'Test onesdfcgvhkbjnlm', 'masculino', 'fdfsfsgesafwgegffffwf@gmail.com', '1234567890', '$2b$10$JlKoKNfTzjQRa0jieql2suTAOj/O0zr253qVnnWC5XI1Tt6bbFmDK', 'active', 'Riohacha', 'Riohacha', 'La Guajira', '2021-07-07 04:15:24', '2021-07-07 04:15:24');
 
 -- --------------------------------------------------------
 
@@ -129,7 +129,6 @@ CREATE TABLE `employees` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
-  `image` mediumblob DEFAULT NULL,
   `email` varchar(60) NOT NULL,
   `telephone` varchar(20) NOT NULL,
   `password` varchar(60) NOT NULL,
@@ -285,7 +284,9 @@ ALTER TABLE `comments`
 -- Indices de la tabla `customers`
 --
 ALTER TABLE `customers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `telephone` (`telephone`);
 
 --
 -- Indices de la tabla `details`
@@ -356,7 +357,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT de la tabla `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT de la tabla `details`
