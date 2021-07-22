@@ -4,11 +4,11 @@ exports.AuthRoute = void 0;
 const auth_controller_1 = require("../controller/auth.controller");
 class AuthRoute {
     constructor() {
-        this.authController = new auth_controller_1.AuthController();
+        this.auth = new auth_controller_1.Auth();
     }
     routes(app) {
-        app.post('/fegui_sajusa/api/v1/customers/auth/login', this.authController.loginCustomer);
-        app.post('/fegui_sajusa/api/v1/customers/register-info', this.authController.registerCustomer);
+        app.post('/fegui_sajusa/api/v1/:name/auth/login', this.auth.login);
+        app.post('/fegui_sajusa/api/v1/register', this.auth.register);
     }
 }
 exports.AuthRoute = AuthRoute;

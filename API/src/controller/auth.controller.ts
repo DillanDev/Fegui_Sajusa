@@ -5,9 +5,13 @@ import { Validation } from "../config/validation";
 
 const MODEL: AuthModel = new AuthModel();
 const VALIDATION: Validation = new Validation();
-export class AuthController{
 
-    public async loginCustomer(req:Request,res:Response){
+export class Auth{
+  
+    public async login(req:Request,res:Response){
+        
+        if(!(req.params.name == 'employees'|| req.params.name == 'customers')) return res.status(404).json({ok:false,message:'Parametro no permitido'});
+        
         const {email,password} = req.body;
         
         if(!(email && password)){
@@ -16,7 +20,7 @@ export class AuthController{
         
         try{
 
-            let a:any = await MODEL.loginCustomer(email,password);
+            let a:any = await MODEL.login(email,password,req.params.name);
             if(a == false){
                 res.status(400).json({message:'Incorrect email or password!'});
             }else if(a.b ==true){
@@ -30,7 +34,7 @@ export class AuthController{
                  
     }
 
-    public async registerCustomer(req:Request, res:Response){
+    public async register(req:Request, res:Response){
         let name = req.body.name || 0;
         let surname =  req.body.surname || 0;
         let email = req.body.email || 0;
@@ -74,9 +78,55 @@ export class AuthController{
 
                 return res.status(406).json({ok:false, message:'Incorrect zip!'}); 
 
-            }else{
+            }else if(req.body.role){
+                let cad = req.body.telephone;
+                if(cad.charAt(0) == '+'){
+                    let auxE = await MODEL.valEmail(req.body, 'employees');
+                    let auxC =  await MODEL.valTel(req.body, 'employees');
+                    if(auxE == 'No existe el email' && auxC == 'No existe el celular'){
+                        if(await MODEL.employee(req.body) !== undefined){
+                            delete req.body.password;
+                            res.status(200).json({ ok:true, employee:req.body});
+                        }else{
+                            res.status(400).json({ ok:false, message:'Error'});
+
+                        }
+                    }else if(auxE == 'Ya existe el email'){
+                        res.status(400).json({ok:false, message:'Ya existe el email'})
+                        
+                    }else if(auxC == 'Ya existe el celular'){
+                        res.status(400).json({ok:false, message:'Ya existe el celular'})
+                            
+                    }    
+                    
+                }else{
+                    res.status(400).json({ok:false, message:'Se solicita con indicativo de cada pais'})
+                }
+            }else if(!req.body.role){
             
-                res.status(200).json({ ok:true, customer: await MODEL.registerCustomer(req.body)});
+                let cad = req.body.telephone;
+                if(cad.charAt(0) == '+'){
+                    let auxE = await MODEL.valEmail(req.body, 'customers');
+                    let auxC =  await MODEL.valTel(req.body, 'customers');
+                    if(auxE == 'No existe el email' && auxC == 'No existe el celular'){
+                        if(await MODEL.customer(req.body) !== undefined){
+                            delete req.body.password;
+                            res.status(200).json({ ok:true, customers:req.body});
+                        }else{
+                            res.status(400).json({ ok:false, message:'Error'});
+
+                        }
+                    }else if(auxE == 'Ya existe el email'){
+                        res.status(400).json({ok:false, message:'Ya existe el email'})
+                        
+                    }else if(auxC == 'Ya existe el celular'){
+                        res.status(400).json({ok:false, message:'Ya existe el celular'})
+                            
+                    }    
+                    
+                }else{
+                    res.status(400).json({ok:false, message:'Se solicita con indicativo de cada pais'})
+                }            
             }
 
         } catch (error) {

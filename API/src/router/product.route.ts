@@ -1,7 +1,8 @@
 import { Application } from "express";
 
 import { ProductController } from "../controller/product.controller";
-import { checkJwt } from "../middleware/jwt";
+import { customerJWT } from "../middleware/customer";
+import { employeeJWT } from "../middleware/admin";
 
 export class ProductRoute{
     
@@ -9,20 +10,27 @@ export class ProductRoute{
 
     public routes(app:Application){
         
-        
+        /*Esto es publico*/
+        //Categorias de los productos
         app.get('/fegui_sajusa/api/v1/categories',  this.productController.categories );
+        //Listado de productos en base a la categoria
         app.get('/fegui_sajusa/api/v1/categories/:name/products',  this.productController.products );
-    
+        //Muestra el producto
         app.get('/fegui_sajusa/api/v1/products/:id',  this.productController.Byid );
 
-        // //Creando
-        app.post('/fegui_sajusa/api/v1/customers',  this.productController.create );
+        /*Esto es para el administrador*/
+        //Creando el producto
+        app.post('/fegui_sajusa/api/v1/products',[employeeJWT],  this.productController.create );
+        //Actualizando el producto
+        app.patch('/fegui_sajusa/api/v1/products/:id',[employeeJWT],  this.productController.update );
+        //Eliminando el producto
+        app.patch('/fegui_sajusa/api/v1/products/:id',[employeeJWT],  this.productController.deleteByid );
 
-        // //Actualizando
-        app.patch('/fegui_sajusa/api/v1/customers/:id',[checkJwt],  this.productController.update );
-
-        // //Desactivando
-        app.patch('/fegui_sajusa/api/v1/delete/:id/customers',[checkJwt],  this.productController.deleteByid );
+        /*Esto es para el cliente*/
+        
+        app.patch('/fegui_sajusa/api/v1/checkout/products/:id',[customerJWT],  this.productController.update );
+        //Lista de productos a comprar
+        app.patch('/fegui_sajusa/api/v1/checkout/products/:id',[customerJWT],  this.productController.update );
 
 
     }

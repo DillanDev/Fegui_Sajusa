@@ -1,13 +1,13 @@
 import { Router,Application } from "express";
 
-import {AuthController} from '../controller/auth.controller';
+import {Auth} from '../controller/auth.controller';
 
 export class AuthRoute{
-    public authController: AuthController = new AuthController();
+    public auth: Auth = new Auth();
 
     public routes(app:Application):void{
         
-        app.post('/fegui_sajusa/api/v1/customers/auth/login', this.authController.loginCustomer);
-        app.post('/fegui_sajusa/api/v1/customers/register-info', this.authController.registerCustomer);
+        app.post('/fegui_sajusa/api/v1/:name/auth/login', this.auth.login);
+        app.post('/fegui_sajusa/api/v1/register', this.auth.register);
     }
 }

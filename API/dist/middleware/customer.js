@@ -22,38 +22,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.employeeJWT = exports.customerJWT = void 0;
+exports.customerJWT = void 0;
 const jwt = __importStar(require("jsonwebtoken"));
-const key_1 = __importDefault(require("../config/key"));
+const key_customer_1 = __importDefault(require("../config/key-customer"));
 const customerJWT = (req, res, next) => {
     const token = req.headers['auth'];
     let jwtPayload;
     try {
-        jwtPayload = jwt.verify(token, key_1.default.jwtSecret);
+        jwtPayload = jwt.verify(token, key_customer_1.default.jwtSecret);
         res.locals.jwtPayload = jwtPayload;
     }
     catch (e) {
         return res.status(401).json({ message: "Not authorized" });
     }
     const { userId, username } = jwtPayload;
-    const newToken = jwt.sign({ userId, username }, key_1.default.jwtSecret, { expiresIn: '48h' });
+    const newToken = jwt.sign({ userId, username }, key_customer_1.default.jwtSecret, { expiresIn: '48h' });
     res.setHeader('token', newToken);
     next();
 };
 exports.customerJWT = customerJWT;
-const employeeJWT = (req, res, next) => {
-    const token = req.headers['auth'];
-    let jwtPayload;
-    try {
-        jwtPayload = jwt.verify(token, key_1.default.jwtSecret);
-        res.locals.jwtPayload = jwtPayload;
-    }
-    catch (e) {
-        return res.status(401).json({ message: "Not authorized" });
-    }
-    const { userId, username } = jwtPayload;
-    const newToken = jwt.sign({ userId, username }, key_1.default.jwtSecret, { expiresIn: '48h' });
-    res.setHeader('token', newToken);
-    next();
-};
-exports.employeeJWT = employeeJWT;
