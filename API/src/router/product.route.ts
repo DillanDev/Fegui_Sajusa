@@ -11,27 +11,24 @@ export class ProductRoute{
     public routes(app:Application){
         
         /*Esto es publico*/
-        //Categorias de los productos
         app.get('/fegui_sajusa/api/v1/categories',  this.productController.categories );
-        //Listado de productos en base a la categoria
         app.get('/fegui_sajusa/api/v1/categories/:name/products',  this.productController.products );
-        //Muestra el producto
-        app.get('/fegui_sajusa/api/v1/products/:id',  this.productController.Byid );
+        app.get('/fegui_sajusa/api/v1/categories/:name/products/:id',  this.productController.Byid );
 
         /*Esto es para el administrador*/
-        //Creando el producto
-        app.post('/fegui_sajusa/api/v1/products',[employeeJWT],  this.productController.create );
-        //Actualizando el producto
-        app.patch('/fegui_sajusa/api/v1/products/:id',[employeeJWT],  this.productController.update );
-        //Eliminando el producto
-        app.patch('/fegui_sajusa/api/v1/products/:id',[employeeJWT],  this.productController.deleteByid );
+        app.get('/fegui_sajusa/api/v1/employees/:id/products/',[employeeJWT],  this.productController.listEmployee );
+        app.post('/fegui_sajusa/api/v1/employees/:id/categories/:name/products',[employeeJWT],  this.productController.create );
+        app.patch('/fegui_sajusa/api/v1/categories/:name/products/:id',[employeeJWT],  this.productController.update );
+        app.delete('/fegui_sajusa/api/v1/products/:id',[employeeJWT],  this.productController.deleteByid );
 
         /*Esto es para el cliente*/
         
-        app.patch('/fegui_sajusa/api/v1/checkout/products/:id',[customerJWT],  this.productController.update );
-        //Lista de productos a comprar
-        app.patch('/fegui_sajusa/api/v1/checkout/products/:id',[customerJWT],  this.productController.update );
+        //Carrito
+        app.post('/fegui_sajusa/api/v1/cart/products/:id',[customerJWT],  this.productController.cart );
+        app.delete('/fegui_sajusa/api/v1/cart/products/:id',[customerJWT],  this.productController.eliminateCart );
 
-
+        //Shopping Seccion
+        app.get('/fegui_sajusa/api/v1/customers/:id/shopping/',[customerJWT],  this.productController.shopping );
+        
     }
 }

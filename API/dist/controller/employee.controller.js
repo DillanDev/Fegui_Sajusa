@@ -9,24 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductController = void 0;
-const product_model_1 = require("../model/product.model");
-const MODEL = new product_model_1.ProductModel;
-class ProductController {
-    categories(req, res) {
+exports.EmployeeController = void 0;
+const employee_model_1 = require("../model/employee.model");
+const MODEL = new employee_model_1.EmployeeModel;
+class EmployeeController {
+    employees(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                res.status(200).json({ ok: true, categories: yield MODEL.categories() });
-            }
-            catch (error) {
-                res.status(500).json({ message: "Error calling function" });
-            }
-        });
-    }
-    products(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield MODEL.products(req.params.name, res);
+                yield MODEL.employees(res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
@@ -36,27 +26,7 @@ class ProductController {
     Byid(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield MODEL.Byid(req.params.id, res);
-            }
-            catch (error) {
-                res.status(500).json({ message: "Error calling function" });
-            }
-        });
-    }
-    listEmployee(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield MODEL.productsEmployee(req.params.id, res);
-            }
-            catch (error) {
-                res.status(500).json({ message: "Error calling function" });
-            }
-        });
-    }
-    create(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield MODEL.create(req.params.id, req.params.name, req.body, res, req);
+                yield MODEL.employee(req.params.id, res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
@@ -66,52 +36,110 @@ class ProductController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield MODEL.update(req.body, req.params.id, req.params.name, res, req);
+                yield MODEL.update(req.params.id, req.body, res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
             }
         });
     }
-    deleteByid(req, res) {
+    delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield MODEL.delete(req.params.id, res);
+                res.status(204).json();
+            }
+            catch (error) {
+                res.status(500).json({ msg: "Error calling function" });
+            }
+        });
+    }
+    /*POST*/
+    posts(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.posts(res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
             }
         });
     }
-    /*Carrito*/
-    //Creando
-    cart(req, res) {
+    post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield MODEL.cart(req.params.id, req.body.quantity, res);
+                yield MODEL.post(req.params.id, res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
             }
         });
     }
-    //Eliminando
-    eliminateCart(req, res) {
+    createPost(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield MODEL.eliminateCart(req.params.id, res);
+                yield MODEL.createPost(req.params.id, req.body, res, req);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
             }
         });
     }
-    /*Shopping*/
-    //Mostrando
-    shopping(req, res) {
+    updatePost(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield MODEL.shopping(req.params.id, res);
+                yield MODEL.updatePost(req.body, req.params.id, res, req);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    deletePost(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.deletePost(req.params.id, res);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    /*COMMENTS*/
+    comments(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.comments(req.params.id, res);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    createComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.createComment(req.params.ID, req.params.id, res, req.body);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    updateComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.updateComment(req.params.id, req.body, res);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    deleteComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.deleteComment(req.params.ID, req.params.id, res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });
@@ -119,4 +147,4 @@ class ProductController {
         });
     }
 }
-exports.ProductController = ProductController;
+exports.EmployeeController = EmployeeController;

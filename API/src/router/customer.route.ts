@@ -30,10 +30,16 @@ export class CustomerRoute{
         //Details
         app.get('/fegui_sajusa/api/v1/customers/:id/orders',[customerJWT],  this.customerController.ByidPayment );
 
-        //Carrito
-        app.post('/fegui_sajusa/api/v1/customers/:id/cart',[customerJWT],  this.customerController.cart );
-
-
-
+        
+        /*COMENTARIOS*/
+        //Mostrar todos los comentarios de una publicación
+        app.get('/fegui_sajusa/api/v1/post/:id/comments',  this.customerController.comments );
+        //Crear 
+        app.post('/fegui_sajusa/api/v1/customers/:ID/post/:id/comments',[customerJWT],  this.customerController.createComment );
+        //Actualizar
+        app.patch('/fegui_sajusa/api/v1/comments/:id',[customerJWT],  this.customerController.updateComment );
+        //Eliminar
+        app.delete('/fegui_sajusa/api/v1/post/:ID/comments/:id',[customerJWT],  this.customerController.deleteComment );
+        
     }
 }

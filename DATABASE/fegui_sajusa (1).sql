@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-07-2021 a las 18:16:43
--- Versión del servidor: 10.4.19-MariaDB
--- Versión de PHP: 8.0.6
+-- Tiempo de generación: 23-07-2021 a las 09:10:39
+-- Versión del servidor: 10.4.20-MariaDB
+-- Versión de PHP: 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,13 +33,6 @@ CREATE TABLE `cart` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `cart`
---
-
-INSERT INTO `cart` (`id`, `products_id`, `quantity`) VALUES
-(1, 1, 50);
-
 -- --------------------------------------------------------
 
 --
@@ -47,15 +40,9 @@ INSERT INTO `cart` (`id`, `products_id`, `quantity`) VALUES
 --
 
 CREATE TABLE `categories` (
-  `id` varchar(30) NOT NULL
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `categories`
---
-
-INSERT INTO `categories` (`id`) VALUES
-('Jovenes');
 
 -- --------------------------------------------------------
 
@@ -100,8 +87,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `name`, `surname`, `gender`, `email`, `telephone`, `password`, `status`, `city`, `region`, `zip`, `createdAt`, `updateAt`) VALUES
-(34, 'ramon', 'arepa', 'hombre', 'ramon@gmail.com', '45345', '$2b$10$NyW.zQhQ2yH4HN0O3/O7iuwZLI9uhyMWIOCxaqDlAkBfSyrJ/XMdC', 'active', 'Bogota', 'Bogota', 'Cundinamarc', '2021-07-06 14:05:45', '2021-07-06 14:05:45'),
-(99, 'duilan', 'Test onesdfcgvhkbjnlm', 'masculino', 'fdfsfsgesafwgegffffwf@gmail.com', '1234567890', '$2b$10$JlKoKNfTzjQRa0jieql2suTAOj/O0zr253qVnnWC5XI1Tt6bbFmDK', 'active', 'Riohacha', 'Riohacha', 'La Guajira', '2021-07-07 04:15:24', '2021-07-07 04:15:24');
+(34, 'ramon', 'arepa', 'masculino', 'ramon@gmail.com', '45345', '$2b$10$NyW.zQhQ2yH4HN0O3/O7iuwZLI9uhyMWIOCxaqDlAkBfSyrJ/XMdC', 'active', 'Bogota', 'Bogota', 'Cundinamarc', '2021-07-22 14:50:17', '2021-07-22 14:50:17'),
+(104, 'dilan', 'gonzalez', 'masculino', 'dilangvidal@gmail.com', '+573014191174', '$2b$10$BpVO2WiWltx/1XzmGfdcKeM5mdfqttIsBZNcQU9HXM3aDZTshwnqi', 'active', 'Riohacha', 'Riohacha', 'LA GUAJIRA', '2021-07-22 14:55:34', '2021-07-22 14:55:34');
 
 -- --------------------------------------------------------
 
@@ -129,16 +116,36 @@ CREATE TABLE `employees` (
   `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `surname` varchar(30) NOT NULL,
+  `gender` varchar(15) NOT NULL,
   `email` varchar(60) NOT NULL,
   `telephone` varchar(20) NOT NULL,
   `password` varchar(60) NOT NULL,
   `role` varchar(20) NOT NULL,
-  `status` varchar(30) NOT NULL,
+  `status` varchar(30) DEFAULT 'active',
   `city` varchar(30) NOT NULL,
   `region` varchar(30) NOT NULL,
   `zip` varchar(10) NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updateAt` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `employees`
+--
+
+INSERT INTO `employees` (`id`, `name`, `surname`, `gender`, `email`, `telephone`, `password`, `role`, `status`, `city`, `region`, `zip`, `createdAt`, `updateAt`) VALUES
+(118, 'dilan', 'gonzalez', 'masculino', 'dilangvidal@gmail.com', '+573014191174', '$2b$10$R770rv95x4LeWqAb86xtjuG4AxqwiWU9TtwdH1IcHKGmUbU3386Ze', 'admin', 'active', 'Riohacha', 'Riohacha', 'LA GUAJIRA', '2021-07-22 14:35:11', '2021-07-22 14:35:11');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `employeesxproducts`
+--
+
+CREATE TABLE `employeesxproducts` (
+  `id` int(11) NOT NULL,
+  `employees_id` int(11) NOT NULL,
+  `products_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -204,7 +211,7 @@ INSERT INTO `payment` (`id`, `customer_id`, `payment_type`, `name`, `account_no`
 CREATE TABLE `post` (
   `id` int(11) NOT NULL,
   `employees_id` int(11) NOT NULL,
-  `image` mediumblob DEFAULT NULL,
+  `image` varchar(60) DEFAULT NULL,
   `title` text NOT NULL,
   `content` mediumtext NOT NULL,
   `comment_count` int(11) NOT NULL,
@@ -221,7 +228,7 @@ CREATE TABLE `post` (
 
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
-  `category_id` varchar(30) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `discount` decimal(10,0) NOT NULL,
   `inventory` int(11) NOT NULL,
   `sku` varchar(80) NOT NULL,
@@ -230,17 +237,10 @@ CREATE TABLE `products` (
   `weight` float NOT NULL,
   `shortDesc` text NOT NULL,
   `longDesc` mediumtext NOT NULL,
-  `image` mediumblob DEFAULT NULL,
+  `image` varchar(60) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updateAt` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `products`
---
-
-INSERT INTO `products` (`id`, `category_id`, `discount`, `inventory`, `sku`, `name`, `price`, `weight`, `shortDesc`, `longDesc`, `image`, `createdAt`, `updateAt`) VALUES
-(1, 'Jovenes', '0', 1, 'wyr93yrt834tgfu3ihf3o439', 'medias ortopedicas', 40, 1, 'Son medias buenas y bonitas', 'Son medias buenas bonitas, baratas y te ayudan en todo papá', NULL, '2021-07-06 14:52:18', '2021-07-06 14:52:18');
 
 -- --------------------------------------------------------
 
@@ -303,6 +303,14 @@ ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `employeesxproducts`
+--
+ALTER TABLE `employeesxproducts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `products_id` (`employees_id`),
+  ADD KEY `employees_id` (`products_id`);
+
+--
 -- Indices de la tabla `orders`
 --
 ALTER TABLE `orders`
@@ -357,7 +365,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT de la tabla `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT de la tabla `details`
@@ -369,6 +377,12 @@ ALTER TABLE `details`
 -- AUTO_INCREMENT de la tabla `employees`
 --
 ALTER TABLE `employees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+
+--
+-- AUTO_INCREMENT de la tabla `employeesxproducts`
+--
+ALTER TABLE `employeesxproducts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -423,6 +437,13 @@ ALTER TABLE `comments`
 ALTER TABLE `details`
   ADD CONSTRAINT `fk_orders` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`),
   ADD CONSTRAINT `fk_productos` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`);
+
+--
+-- Filtros para la tabla `employeesxproducts`
+--
+ALTER TABLE `employeesxproducts`
+  ADD CONSTRAINT `employeesxproducts_ibfk_1` FOREIGN KEY (`employees_id`) REFERENCES `employees` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `employeesxproducts_ibfk_2` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `orders`

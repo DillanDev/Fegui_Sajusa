@@ -123,5 +123,46 @@ class CustomerController {
             }
         });
     }
+    /*COMMENTS*/
+    comments(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.comments(req.params.id, res);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    createComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.createComment(req.params.ID, req.params.id, res, req.body);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    updateComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.updateComment(req.params.id, req.body, res);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
+    deleteComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield MODEL.deleteComment(req.params.ID, req.params.id, res);
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error calling function" });
+            }
+        });
+    }
 }
 exports.CustomerController = CustomerController;

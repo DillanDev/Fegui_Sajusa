@@ -12,63 +12,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CustomerModel = void 0;
+exports.EmployeeModel = void 0;
 const connection_1 = __importDefault(require("../config/connection"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
-class CustomerModel {
+const upload_controller_1 = require("../controller/upload.controller");
+const upload_model_1 = require("./upload.model");
+const MODEL = new upload_controller_1.UploadController;
+const UPLOAD = new upload_model_1.UploadModel;
+class EmployeeModel {
     constructor() {
         this.Query = '';
         this.inserts = [''];
     }
-    customers() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.Query = `
-       SELECT * 
-       FROM customers`;
-            return yield connection_1.default.executeQuery(this.Query);
-        });
-    }
-    customer(id) {
+    employees(res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let escapeID = connection_1.default.instance.cnn.escape(id);
-                this.Query = `
-            SELECT * 
-            FROM customers 
-            WHERE id = ${escapeID} AND status = 'actived'`;
+                this.Query = `SELECT * FROM employees WHERE status='actived'`;
+                let result = yield connection_1.default.executeQuery(this.Query);
+                let obj = [];
+                let i = 0;
+                for (var value of result) {
+                    delete value.password;
+                    obj[i] = value;
+                    i++;
+                }
+                return res.status(200).json({ ok: true, employees: obj });
+            }
+            catch (error) {
+                return res.status(404).json({ ok: false, error });
+            }
+        });
+    }
+    employee(id, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.Query = `SELECT * FROM employees WHERE id='${id}' AND status = 'actived';`;
                 let result = yield connection_1.default.executeQuery(this.Query);
                 delete result[0].password;
-                return result[0];
+                return res.status(200).json({ ok: true, employee: result[0] });
             }
             catch (error) {
-                console.log('Id invalid');
+                return res.status(404).json({ ok: false, error });
             }
         });
     }
-    createCustomer(body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                console.log("entro");
-                body.password = yield bcrypt_1.default.hash(body.password, 10);
-                this.Query = `
-            INSERT INTO 
-            customers(name, surname,image, gender, email,telephone, password, city, region, zip) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)`;
-                this.inserts = [`${body.name}`, `${body.surname}`, `${body.image}`, `${body.gender}`, `${body.email}`, `${body.telephone}`, `${body.password}`, `${body.city}`, `${body.city}`, `${body.region}`];
-                this.Query = connection_1.default.instance.cnn.format(this.Query, this.inserts);
-                var result;
-                yield connection_1.default.executeQuery(this.Query).then(() => {
-                    delete body.password;
-                    result = body;
-                });
-                return result;
-            }
-            catch (error) {
-                console.log('Query failed');
-            }
-        });
-    }
-    updateCustomer(id, body) {
+    update(id, body, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 var i = 0;
@@ -81,11 +68,11 @@ class CustomerModel {
                     this.inserts[i] += body[value];
                     i++;
                 }
-                this.Query = `UPDATE customers SET ??=?`;
+                this.Query = `UPDATE employees SET ??=?`;
                 for (let i = 1; i <= Object.keys(body).length - 1; i++) {
                     this.Query += ',??=?';
                 }
-                this.Query += ` WHERE id = ${escapeID} AND status = 'active' `;
+                this.Query += ` WHERE id = ${escapeID} AND status = 'actived' `;
                 this.Query = connection_1.default.instance.cnn.format(this.Query, this.inserts);
                 var result;
                 yield connection_1.default.executeQuery(this.Query).then(() => {
@@ -93,55 +80,96 @@ class CustomerModel {
                         delete body.password;
                     result = body;
                 });
-                return result;
+                return res.status(200).json({ ok: true, employee: result });
             }
             catch (error) {
-                console.log('Query failed');
+                return res.status(404).json({ ok: false, error });
             }
         });
     }
-    deleteCustomer(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let escapeID = connection_1.default.instance.cnn.escape(id);
-            this.Query = `
-        UPDATE customers 
-        SET status='disabled' 
-        WHERE id = ${escapeID}`;
-            return yield connection_1.default.executeQuery(this.Query);
-        });
-    }
-    createPayment(id, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let escapeID = connection_1.default.instance.cnn.escape(id);
-            this.Query = `
-        INSERT INTO payment (customer_id, payment_type, name, account_no, expiry) 
-        VALUES (?, ?, ?, ?, ?)`;
-            this.inserts = [`${escapeID}`, `${body.payment_type}`, `${body.name}`, `${body.account_no}`, `${body.expiry}`];
-            this.Query = connection_1.default.instance.cnn.format(this.Query, this.inserts);
-            return yield connection_1.default.executeQuery(this.Query);
-        });
-    }
-    searchPayment(id) {
+    delete(id, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let escapeID = connection_1.default.instance.cnn.escape(id);
                 this.Query = `
-            SELECT * 
-            FROM payment 
-            WHERE customer_id = ${escapeID}`;
+            UPDATE employees 
+            SET status='disabled' 
+            WHERE id = ${escapeID}`;
                 let result = yield connection_1.default.executeQuery(this.Query);
-                return result[0];
+                if (result.constructor.name === 'OkPacket') {
+                    return res.status(200).json({ ok: true });
+                }
             }
             catch (error) {
-                console.log('Id invalid');
+                return res.status(404).json({ ok: false, error });
             }
         });
     }
-    updatePayment(id, body) {
+    /*POST*/
+    //public post
+    posts(res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.Query = 'SELECT `id`, `employees_id`, `image`, `title`, `shortDesc`, `comment_count`, `like_count`, `createdAt`, `updateAt` FROM `post` ';
+                let result = yield connection_1.default.executeQuery(this.Query);
+                let obj = [];
+                let i = 0;
+                for (var value of result) {
+                    delete value.password;
+                    obj[i] = value;
+                    i++;
+                }
+                return res.status(200).json({ ok: true, posts: obj });
+            }
+            catch (error) {
+                return res.status(404).json({ ok: false, error });
+            }
+        });
+    }
+    post(id, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.Query = 'SELECT `id`, `employees_id`, `image`, `title`, `content`, `comment_count`, `like_count`, `createdAt`, `updateAt` FROM `post` WHERE id=' + id + '';
+                let result = yield connection_1.default.executeQuery(this.Query);
+                delete result[0].password;
+                return res.status(200).json({ ok: true, post: result[0] });
+            }
+            catch (error) {
+                return res.status(404).json({ ok: false, error });
+            }
+        });
+    }
+    //para los admins
+    createPost(ID, body, res, req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.Query = `
+            INSERT INTO 
+            post(employees_id, title, shortDesc, content) 
+            VALUES (?,?,?,?)`;
+                this.inserts = [`${ID}`, `${body.title}`, `${body.shortDesc}`, `${body.content}`];
+                this.Query = connection_1.default.instance.cnn.format(this.Query, this.inserts);
+                let result = yield connection_1.default.executeQuery(this.Query);
+                this.Query = "SELECT * FROM `post` WHERE employees_id = '" + ID + "'";
+                result = yield connection_1.default.executeQuery(this.Query);
+                if (req.files !== null) {
+                    yield MODEL.load(req, res, 'post', result[result.length - 1].id);
+                }
+                return res.status(200)
+                    .json({
+                    ok: true,
+                    message: 'Datos guardados correctamente'
+                });
+            }
+            catch (error) {
+                return res.status(404).json({ ok: false, error });
+            }
+        });
+    }
+    updatePost(body, id, res, req) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 var i = 0;
-                let escapeID = connection_1.default.instance.cnn.escape(id);
                 for (var value in body) {
                     this.inserts[i] = '';
                     this.inserts[i] += value;
@@ -150,38 +178,53 @@ class CustomerModel {
                     this.inserts[i] += body[value];
                     i++;
                 }
-                this.Query = `UPDATE payment SET ??=?`;
-                for (let i = 1; i <= Object.keys(body).length - 1; i++) {
+                this.Query = `UPDATE post SET id=${id}`;
+                for (let i = 1; i <= Object.keys(body).length; i++) {
                     this.Query += ',??=?';
                 }
-                this.Query += ` WHERE id = ${escapeID} `;
+                this.Query += ` WHERE id = ${id}`;
                 this.Query = connection_1.default.instance.cnn.format(this.Query, this.inserts);
-                var result;
-                yield connection_1.default.executeQuery(this.Query).then(() => {
-                    result = body;
+                yield connection_1.default.executeQuery(this.Query);
+                if (req.files !== null) {
+                    yield MODEL.load(req, res, 'post', id);
+                }
+                return res.status(200)
+                    .json({
+                    ok: true,
+                    message: 'Datos actualizados correctamente'
                 });
-                return result;
+                // result = await MySQL.executeQuery(this.Query); 
             }
             catch (error) {
-                console.log('Query failed');
+                return res.status(404)
+                    .json({
+                    ok: true,
+                    error
+                });
             }
         });
     }
-    deletePayment(id) {
+    deletePost(id, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let escapeID = connection_1.default.instance.cnn.escape(id);
-            this.Query = `
-        DELETE FROM payment
-        WHERE id = ${escapeID}`;
-            return yield connection_1.default.executeQuery(this.Query);
-        });
-    }
-    cart(id, quantity) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.Query = `
-        INSERT INTO cart(products_id, quantity) 
-        VALUES ('${id}','${quantity}')`;
-            return yield connection_1.default.executeQuery(this.Query);
+            try {
+                this.Query = `SELECT  image FROM post WHERE id = '${id}'`;
+                let result = yield connection_1.default.executeQuery(this.Query);
+                this.Query = `DELETE FROM post WHERE id = '${id}'`;
+                yield connection_1.default.executeQuery(this.Query);
+                UPLOAD.borraArchivo(result[0].image, 'post');
+                return res.status(200)
+                    .json({
+                    ok: true,
+                    message: 'Datos eliminados correctamente'
+                });
+            }
+            catch (error) {
+                return res.status(404)
+                    .json({
+                    ok: false,
+                    error
+                });
+            }
         });
     }
     comments(id, res) {
@@ -199,7 +242,7 @@ class CustomerModel {
     createComment(ID, id, res, body) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                this.Query = 'SELECT name FROM customers WHERE id=' + ID + '';
+                this.Query = 'SELECT name FROM employees WHERE id=' + ID + '';
                 let result = yield connection_1.default.executeQuery(this.Query);
                 this.Query = 'INSERT INTO comments(post_id, author, content) VALUES (' + id + ',"' + result[0].name + '","' + body.content + '")';
                 yield connection_1.default.executeQuery(this.Query);
@@ -260,4 +303,4 @@ class CustomerModel {
         });
     }
 }
-exports.CustomerModel = CustomerModel;
+exports.EmployeeModel = EmployeeModel;

@@ -168,8 +168,6 @@ export class CustomerModel{
     
     }
 
-
-    
     public async cart(id:string,quantity:string){
 
         this.Query = `
@@ -179,5 +177,90 @@ export class CustomerModel{
        
      }
 
+         
+    public async comments(id:string,res:any){
+        try {
+            this.Query  = 'SELECT id, author, content, createdAt, updateAt FROM comments WHERE post_id='+id+'';
+            let result:any = await MySQL.executeQuery(this.Query); 
+            
 
+            return res.status(200).json({ok:true,comments:result});
+        } catch (error) {
+            return res.status(404).json({ok:false,error});
+        }
+    }
+
+
+    public async createComment(ID:string,id:string,res:any,body:any){
+        try {
+
+            this.Query  = 'SELECT name FROM customers WHERE id='+ID+'';
+            let result:any = await MySQL.executeQuery(this.Query); 
+
+            this.Query  = 'INSERT INTO comments(post_id, author, content) VALUES ('+id+',"'+result[0].name+'","'+body.content+'")';
+            await MySQL.executeQuery(this.Query); 
+        
+            this.Query  = 'SELECT id, author, content, createdAt, updateAt FROM comments WHERE post_id='+id+'';
+            result = await MySQL.executeQuery(this.Query); 
+            
+            this.Query = 'UPDATE post SET comment_count='+(result.length)+' WHERE id='+id+'';
+            await MySQL.executeQuery(this.Query); 
+
+            return res.status(200).json({ok:true,message:'Actualizado correctamente'});
+        } catch (error) {
+            return res.status(404).json({ok:false,error});
+        }
+    }
+
+    public async updateComment(id:string,body:any,res:any){
+        try {   
+            var i = 0;
+
+            let escapeID = MySQL.instance.cnn.escape(id);
+
+            for (var value in body) {
+                this.inserts[i] = '';
+                this.inserts[i] += value;
+                i++;
+                this.inserts[i] = '';
+                this.inserts[i] += body[value];
+                i++;
+            }
+
+            this.Query = `UPDATE comments SET id=${escapeID}`
+            for (let i =1 ; i<=Object.keys(body).length;i++){
+                this.Query +=',??=?';
+            }
+            this.Query += ` WHERE id = ${escapeID}`;
+            this.Query = MySQL.instance.cnn.format(this.Query,this.inserts);
+            let result:any = await MySQL.executeQuery(this.Query); 
+
+            if(result.constructor.name === 'OkPacket'){
+
+                return res.status(200).json({ok:true,message:'Se actualizo correctamente'});
+            }
+
+        } catch (error) {
+            return res.status(404).json({ok:false,error});
+        }
+    }
+
+    public async deleteComment(ID:string,id:string,res:any){
+        try {
+            
+            this.Query  = 'SELECT id, author, content, createdAt, updateAt FROM comments WHERE post_id='+ID+'';
+            let result:any = await MySQL.executeQuery(this.Query); 
+            
+            this.Query = 'UPDATE post SET comment_count='+(result.length-1)+' WHERE id='+ID+'';
+            await MySQL.executeQuery(this.Query);
+
+            this.Query  = 'DELETE FROM comments WHERE id='+id+'';
+            await MySQL.executeQuery(this.Query); 
+
+
+            return res.status(200).json({ok:true,message:'Eliminado correctamente'});
+        } catch (error) {
+            return res.status(404).json({ok:false,error});
+        }
+    }
 }

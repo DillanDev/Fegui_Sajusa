@@ -1,4 +1,5 @@
 import express,{ Application } from "express";
+import fileUpload from "express-fileupload";
 
 import { Route } from '../router/routes';
 
@@ -22,12 +23,14 @@ export class App{
     public middlewares(){
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
+        this.app.use(fileUpload());
     }
     
     private routes(){
         this.route.CustomerRoute.routes(this.app);
         this.route.AuthRoutes.routes(this.app);
         this.route.ProductRoutes.routes(this.app);
+        this.route.EmployeeRoute.routes(this.app);
     }
 
 
