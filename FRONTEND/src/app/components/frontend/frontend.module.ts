@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FooterComponent } from './bottom/footer/footer.component';
 import { HomeComponent } from './body/home/home.component';
 import { FrontendRoutingModule } from './frontend-routing.module';
@@ -18,6 +17,7 @@ import { ArticleCardComponent } from './body/article-card/article-card.component
 import { ContainerTopComponent } from './top/container-top/container-top.component';
 import { ContainerElementsComponent } from './top/container-elements/container-elements.component';
 import { LoginComponent } from './body/login/login.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -42,7 +42,7 @@ import { LoginComponent } from './body/login/login.component';
 
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     FrontendRoutingModule
   ]
 })

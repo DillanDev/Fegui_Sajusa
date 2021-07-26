@@ -15,20 +15,20 @@ export class Auth{
         const {email,password} = req.body;
         
         if(!(email && password)){
-            return res.status(400).json({message: 'Username and password required'});
+            return res.json({ok:false,message: 'Username and password required'});
         }
         
         try{
 
             let a:any = await MODEL.login(email,password,req.params.name);
             if(a == false){
-                res.status(400).json({message:'Incorrect email or password!'});
+                res.json({ok:false,message:'Incorrect email or password!'});
             }else if(a.b ==true){
                 
                 res.status(200).json({ok:a.b,token:a.token});
             }
         }catch(error){
-            return res.status(400).json({message: 'Incorrect email or password!'});
+            return res.json({ok:false,message: 'Incorrect email or password!'});
         }
 
                  

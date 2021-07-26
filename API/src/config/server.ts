@@ -1,5 +1,6 @@
 import express,{ Application } from "express";
 import fileUpload from "express-fileupload";
+import cors from "cors";
 
 import { Route } from '../router/routes';
 
@@ -24,6 +25,7 @@ export class App{
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(fileUpload());
+        this.app.use(cors());
     }
     
     private routes(){

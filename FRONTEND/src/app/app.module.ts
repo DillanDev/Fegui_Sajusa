@@ -3,7 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AdminModule } from './components/admin/admin.module';
 import { FrontendModule } from './components/frontend/frontend.module';
+import { HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +15,10 @@ import { FrontendModule } from './components/frontend/frontend.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FrontendModule
+    FrontendModule,
+    AdminModule,
+    HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

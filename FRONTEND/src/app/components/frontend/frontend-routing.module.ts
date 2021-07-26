@@ -14,7 +14,9 @@ import { CheckoutComponent } from './body/checkout/checkout.component';
 
 
 const routes: Routes = [
-  {path:'', redirectTo: 'home',pathMatch: 'full'},
+  
+    
+  {path:'**', redirectTo: 'home',pathMatch: 'full'},
   {path:'home',component: HomeComponent},
   {path:'consultant',component: ConsultantComponent},
   {path:'login',component: LoginComponent},
@@ -25,7 +27,10 @@ const routes: Routes = [
   {path:'cart',component: CartComponent},
   {path:'article-list',component: ArticleListComponent},
   {path:'article-detail',component: ArticleDetailComponent},
-  {path:'checkout',component: CheckoutComponent}
+  {path:'checkout',component: CheckoutComponent},
+    
+
+  
 
 ];
 
