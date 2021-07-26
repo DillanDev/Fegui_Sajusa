@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const cors_1 = __importDefault(require("cors"));
 const routes_1 = require("../router/routes");
 class App {
     constructor(port) {
@@ -32,6 +33,7 @@ class App {
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
         this.app.use(express_fileupload_1.default());
+        this.app.use(cors_1.default());
     }
     routes() {
         this.route.CustomerRoute.routes(this.app);
