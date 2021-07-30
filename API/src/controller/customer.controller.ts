@@ -137,8 +137,6 @@ export class CustomerController{
 
     }
 
-
-        
     public async cart(req:Request, res:Response){
 
         try {
@@ -149,8 +147,51 @@ export class CustomerController{
         
     }
 
-       /*COMMENTS*/
-       public async comments(req:Request, res:Response){
+
+    /*ORDERS*/
+    public async orders(req:Request, res:Response){
+        try {
+            await MODEL.orders(req.params.id,res);
+        } catch (error) {
+            res.status(500).json({message:"Error calling function"});
+        }
+    }
+
+    public async order(req:Request, res:Response){
+        try {
+            await MODEL.order(req.params.id,req.params.ID,res);
+        } catch (error) {
+            res.status(500).json({message:"Error calling function"});
+        }
+    }
+
+    public async createOrders(req:Request, res:Response){
+        try {
+            await MODEL.createComment(req.params.ID,req.params.id,res,req.body);
+        } catch (error) {
+            res.status(500).json({message:"Error calling function"});
+        }
+    }
+
+    public async updateOrders(req:Request, res:Response){
+        try {
+            await MODEL.updateComment(req.params.id,req.body,res);
+        } catch (error) {
+            res.status(500).json({message:"Error calling function"});
+        }
+    }
+
+    public async deleteOrders(req:Request, res:Response){
+        try {
+            await MODEL.deleteComment(req.params.ID,req.params.id,res);
+        } catch (error) {
+            res.status(500).json({message:"Error calling function"});
+        }
+    }
+
+
+    /*COMMENTS*/
+    public async comments(req:Request, res:Response){
         try {
             await MODEL.comments(req.params.id,res);
         } catch (error) {

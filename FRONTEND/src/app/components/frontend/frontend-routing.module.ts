@@ -16,7 +16,7 @@ import { CheckoutComponent } from './body/checkout/checkout.component';
 const routes: Routes = [
   
     
-  {path:'**', redirectTo: 'home',pathMatch: 'full'},
+  {path:'', redirectTo: 'home',pathMatch: 'full'},
   {path:'home',component: HomeComponent},
   {path:'consultant',component: ConsultantComponent},
   {path:'login',component: LoginComponent},
