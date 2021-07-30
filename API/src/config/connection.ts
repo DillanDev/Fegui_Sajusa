@@ -9,10 +9,10 @@ export default class MySQL{
 
     constructor(){
         this.cnn = mysql.createConnection({
-            host:'localhost',
-            user:'root',
-            password: '',
-            database: 'fegui_sajusa'
+            host: process.env.DATABASE_HOST || 'localhost',
+            user: process.env.DATABASE_USER || 'root',
+            password: process.env.DATABASE_PASSWORD || '',
+            database: process.env.DATABASE_NAME || 'fegui_sajusa'
         });
 
         this.connectDB();
