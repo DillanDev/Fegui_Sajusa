@@ -14,9 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql_1 = __importDefault(require("mysql"));
 const util_1 = __importDefault(require("util"));
+const dotenv_1 = require("dotenv");
 class MySQL {
     constructor() {
         this.connect = false;
+        dotenv_1.config();
         this.cnn = mysql_1.default.createConnection({
             host: process.env.DATABASE_HOST || 'localhost',
             user: process.env.DATABASE_USER || 'root',

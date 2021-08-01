@@ -1,5 +1,7 @@
 import mysql from "mysql";
 import util from "util";
+import { config } from "dotenv";
+
 
 export default class MySQL{
 
@@ -8,13 +10,15 @@ export default class MySQL{
     connect: boolean = false;
 
     constructor(){
+        config();
+        
         this.cnn = mysql.createConnection({
             host: process.env.DATABASE_HOST || 'localhost',
             user: process.env.DATABASE_USER || 'root',
             password: process.env.DATABASE_PASSWORD || '',
             database: process.env.DATABASE_NAME || 'fegui_sajusa'
         });
-
+        
         this.connectDB();
     }
 
@@ -34,7 +38,7 @@ export default class MySQL{
         
     }
 
-    private connectDB(){
+    public connectDB(){
         this.cnn.connect((err:mysql.MysqlError)=>{
             if(err) return console.log(err.message);
 

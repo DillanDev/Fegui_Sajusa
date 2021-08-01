@@ -17,14 +17,17 @@ const express_1 = __importDefault(require("express"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = require("../router/routes");
+const connection_1 = __importDefault(require("./connection"));
 class App {
     constructor(port) {
         this.port = port;
         this.route = new routes_1.Route();
+        this.conn = new connection_1.default();
         this.app = express_1.default();
         this.settings();
         this.middlewares();
         this.routes();
+        this.conn.connectDB;
     }
     settings() {
         this.app.set('port', this.port || process.env.PORT || 3000);
@@ -45,7 +48,7 @@ class App {
         return __awaiter(this, void 0, void 0, function* () {
             const PORT = this.app.get('port');
             this.app.listen(PORT);
-            console.log(`SERVER UP in http://localhost:${PORT}`);
+            console.log(`SERVER UP IN PORT: ${PORT}`);
         });
     }
 }
