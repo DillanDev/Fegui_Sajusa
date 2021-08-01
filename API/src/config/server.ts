@@ -3,12 +3,10 @@ import fileUpload from "express-fileupload";
 import cors from "cors";
 
 import { Route } from '../router/routes';
-import MySQL from './connection';
 
 
 export class App{
     public route: Route = new Route();
-    public conn: MySQL = new MySQL();
     app: Application;
 
     constructor(private port?: number | string){
@@ -16,7 +14,6 @@ export class App{
         this.settings();  
         this.middlewares();        
         this.routes();
-        this.conn.connectDB;
     }
 
     private settings(){
