@@ -29,7 +29,7 @@ export class ProductController{
 
     public async Byid(req:Request, res:Response){
         try {
-            await MODEL.Byid(req.params.id,res);
+            await MODEL.Byid(req.params.name,res);
         } catch (error) {
             res.status(500).json({message:"Error calling function"});
         }

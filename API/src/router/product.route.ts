@@ -12,8 +12,8 @@ export class ProductRoute{
         
         /*Esto es publico*/
         app.get('/fegui_sajusa/api/v1/categories',  this.productController.categories );
-        app.get('/fegui_sajusa/api/v1/categories/:name/products',  this.productController.products );
-        app.get('/fegui_sajusa/api/v1/categories/:name/products/:id',  this.productController.Byid );
+        app.get('/fegui_sajusa/api/v1/categories/:id/products',  this.productController.products );
+        app.get('/fegui_sajusa/api/v1/products/:name',  this.productController.Byid );
 
         /*Esto es para el administrador*/
         app.get('/fegui_sajusa/api/v1/employees/:id/products/',[employeeJWT],  this.productController.listEmployee );

@@ -1,0 +1,33 @@
+a {
+    color: #4BA3C3;
+    text-decoration: none;
+}
+  
+  
+  a:hover,
+  a:active,
+  a:focus {
+    color: #BA324F;
+    outline: none;
+    text-decoration: none;
+  }
+  
+  
+
+/**********************************/
+/********* Breadcrumb CSS *********/
+/**********************************/
+.breadcrumb-wrap {
+    position: relative;
+    width: 100%;
+}
+
+.breadcrumb-wrap .breadcrumb {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+
+li{
+  text-transform: capitalize;
+}

@@ -1,0 +1,17 @@
+
+
+a {
+    color: #4BA3C3;
+    text-decoration: none;
+}
+  
+  
+  a:hover,
+  a:active,
+  a:focus {
+    color: #f8f8f8;
+    outline: none;
+    text-decoration: none;
+  }
+  
+  

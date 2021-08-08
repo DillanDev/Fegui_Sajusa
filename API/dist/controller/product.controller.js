@@ -36,7 +36,7 @@ class ProductController {
     Byid(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield MODEL.Byid(req.params.id, res);
+                yield MODEL.Byid(req.params.name, res);
             }
             catch (error) {
                 res.status(500).json({ message: "Error calling function" });

@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 })
 export class LoginService {
 
-  url: string = "http://localhost:3000/"
+  url: string = "http://143.198.97.26:3000/"
   constructor(private http:HttpClient) { }
 
   LoginByEmail(form:LoginI):Observable<ResponseI>{

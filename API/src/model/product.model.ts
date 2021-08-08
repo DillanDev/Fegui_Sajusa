@@ -31,12 +31,12 @@ export class ProductModel{
         });
     }
 
-    public async Byid(id:string,res:any){
-        this.Query = "SELECT `id`, `discount`, `inventory`, `sku`, `name`, `price`, `quantity`, `weight`, `shortDesc`, `longDesc`, `image` FROM `products` WHERE id = '"+id+"'";
+    public async Byid(name:string,res:any){
+        this.Query = "SELECT * FROM `products` WHERE name LIKE '%"+name+"%'";
         let result:any = await MySQL.executeQuery(this.Query); 
         res.status(200).json({
             ok:true,
-            product:result[0] 
+            product:result 
         });
 
     }

@@ -40,8 +40,7 @@ CREATE TABLE `cart` (
 --
 
 CREATE TABLE `categories` (
-  `id` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL
+  `id` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -228,7 +227,7 @@ CREATE TABLE `post` (
 
 CREATE TABLE `products` (
   `id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_id` varchar(30) NOT NULL,
   `discount` decimal(10,0) NOT NULL,
   `inventory` int(11) NOT NULL,
   `sku` varchar(80) NOT NULL,

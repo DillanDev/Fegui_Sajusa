@@ -1,0 +1,21 @@
+
+
+
+.card{
+    width: 16rem;
+    height: 18rem;
+    box-shadow: 1px rgba(0, 0, 0, 0.253);
+}
+
+.card > img{
+    height: 39%;
+}
+
+.card-title{
+    font-size: 14px;
+}
+.card-text{
+    font-size: 12px;
+    color: #6a6a6a;
+
+}

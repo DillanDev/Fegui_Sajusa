@@ -43,13 +43,13 @@ class ProductModel {
             });
         });
     }
-    Byid(id, res) {
+    Byid(name, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.Query = "SELECT `id`, `discount`, `inventory`, `sku`, `name`, `price`, `quantity`, `weight`, `shortDesc`, `longDesc`, `image` FROM `products` WHERE id = '" + id + "'";
+            this.Query = "SELECT * FROM `products` WHERE name LIKE '%" + name + "%'";
             let result = yield connection_1.default.executeQuery(this.Query);
             res.status(200).json({
                 ok: true,
-                product: result[0]
+                product: result
             });
         });
     }
